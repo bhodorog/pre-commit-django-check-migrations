@@ -16,6 +16,8 @@ def main():
         pre_command = 'unset VIRTUAL_ENV; '
 
     print(f"{os.environ}")
+    from django.conf import settings
+    print(f"{settings.MIGRATION_MODULES=}")
     output = subprocess.check_output(
         f'{pre_command}{args.exec_command} {args.manage_path} makemigrations --dry-run',
         shell=True
