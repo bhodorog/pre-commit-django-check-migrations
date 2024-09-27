@@ -1,3 +1,4 @@
+import os
 import argparse
 import subprocess
 
@@ -10,10 +11,11 @@ def main():
 
     pre_command = ''
     if any([part in ['poetry', 'pipenv'] for part in args.exec_command.split(' ')]):
-        # unsetting hooks virtualenv path from env variables so it does 
+        # unsetting hooks virtualenv path from env variables so it does
         # NOT get used when calling poetry or pipenv
         pre_command = 'unset VIRTUAL_ENV; '
 
+    print(f"{os.environ}")
     output = subprocess.check_output(
         f'{pre_command}{args.exec_command} {args.manage_path} makemigrations --dry-run',
         shell=True
